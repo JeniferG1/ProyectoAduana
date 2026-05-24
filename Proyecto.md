@@ -10,7 +10,7 @@
 Nombre | Rol
 -- | --
 Daniel González | Desarrollador Backend
-Danyer Darío | Desarrollador Backend
+Danyer Cordoba | Desarrollador Backend
 Jenifer Gáliz | Desarrollador Backend
 
 
