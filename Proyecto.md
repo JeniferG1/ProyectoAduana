@@ -1,7 +1,7 @@
 # ProyectoAduana
 <html>
 <body>
-<!--StartFragment--><html><head></head><body><h1>ProyectoAduana 🛃</h1>
+<!--StartFragment--><html><head></head><body><h1>ProyectoAduana </h1>
 <h2>Descripción del Proyecto</h2>
 <p>ProyectoAduana es una arquitectura de microservicios desarrollada con Spring Boot que gestiona los procesos aduaneros de control fronterizo. El sistema permite administrar personas, vehículos, trámites fronterizos, permisos de circulación, declaraciones juradas y más, mediante servicios independientes que se comunican entre sí a través de Feign Client y se registran en un servidor Eureka.</p>
 <hr>
