@@ -15,21 +15,23 @@ import java.util.Date;
 public class PermisoCirculacion {
 
     @Id
-    @Column(name = "id_permiso")
-    private Integer IdPermiso;
-
+    @NotNull(message = "El id del permiso es obligatorio")
+    @Column(name = "id_permiso", nullable = false)
+    private Integer idPermiso;
 
     @Column(name = "fecha_emision")
-    private Date FechaEmision;
+    @Temporal(TemporalType.DATE)
+    @Past(message = "La fecha de emisión debe ser una fecha pasada")
+    private Date fechaEmision;
 
+    @Min(value = 1, message = "Los días de vigencia deben ser mayor a 0")
     @Column(name = "dias_vigencia")
-    private Integer DiasVigencia;
-
-    @Column(name = "patente", length = 15)
-    private String Patente;
-
+    private Integer diasVigencia;
 
     @Column(name = "id_tramite")
-    private Integer IdTramite;
+    private Integer idTramite;
 
+    @Size(max = 15, message = "La patente no puede superar 15 caracteres")
+    @Column(name = "patente", length = 15)
+    private String patente;
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/permisos")
@@ -82,6 +83,16 @@ public class PermisoCirculacionController {
         PermisoCirculacion actualizado = permisoCirculacionService.actualizarPermiso(id, nuevo);
         if (actualizado != null) {
             return new ResponseEntity<>(actualizado, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/completo/{id}")
+    public ResponseEntity<Map<String, Object>> getPermisoCompleto(@PathVariable Integer id) {
+        Map<String, Object> resultado = permisoCirculacionService.obtenerPermisoCompleto(id);
+        if (resultado != null) {
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
