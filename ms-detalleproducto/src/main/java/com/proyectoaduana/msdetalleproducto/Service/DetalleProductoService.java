@@ -33,11 +33,17 @@ public class DetalleProductoService {
     }
 
     public DetalleProducto agregarDetalle(DetalleProducto nuevo) {
+        try {
         log.info("Creando detalle producto: {}", nuevo.getCategoria());
         return detalleProductoRepository.save(nuevo);
+    }catch (Exception e) {
+            log.error("Error al crear detalle producto: {}", e.getMessage());
+            return null;
+        }
     }
 
     public boolean eliminarDetalle(Integer id) {
+        try {
         if (detalleProductoRepository.existsById(id)) {
             log.info("Eliminando detalle producto : {}", id);
             detalleProductoRepository.deleteById(id);
@@ -46,9 +52,15 @@ public class DetalleProductoService {
             log.warn("detalle producto {} no encontrado", id);
             return false;
         }
+        } catch (Exception e) {
+            log.error("Error al eliminar detalle producto con id {}: {}", id, e.getMessage());
+            return false;
+        }
     }
 
+
     public DetalleProducto actualizarDetalle(Integer id, DetalleProducto nuevo) {
+        try {
         if (detalleProductoRepository.existsById(id)) {
             DetalleProducto detalle = detalleProductoRepository.findById(id).get();
             detalle.setCategoria(nuevo.getCategoria());
@@ -60,5 +72,10 @@ public class DetalleProductoService {
             return null;
 
         }
+        } catch (Exception e) {
+            log.error("Error al actualizar detalle producto con id {}: {}", id, e.getMessage());
+            return null;
+        }
+
     }
 }

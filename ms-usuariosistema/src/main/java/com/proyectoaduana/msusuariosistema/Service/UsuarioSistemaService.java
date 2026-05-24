@@ -38,11 +38,17 @@ public class UsuarioSistemaService {
     }
 
     public UsuarioSistema agregarUsuario(UsuarioSistema nuevo) {
+        try {
         log.info("Creando usuario : {}", nuevo.getNombreUsuario());
         return usuarioSistemaRepository.save(nuevo);
+    }catch (Exception e) {
+            log.error("Error al crear el usuario: {}", e.getMessage());
+            return null;
+        }
     }
 
     public boolean eliminarUsuario(Integer id) {
+        try {
         if (usuarioSistemaRepository.existsById(id)) {
             log.info("Eliminando usuario : {}", id);
             usuarioSistemaRepository.deleteById(id);
@@ -51,9 +57,14 @@ public class UsuarioSistemaService {
             log.warn("usuario {} no encontrado", id);
             return false;
         }
+    }catch (Exception e) {
+            log.error("Error al eliminar el usuario {}: {}", id, e.getMessage());
+            return false;
+        }
     }
 
     public UsuarioSistema actualizarUsuario(Integer id, UsuarioSistema nuevo) {
+        try {
         if (usuarioSistemaRepository.existsById(id)) {
             UsuarioSistema usuario = usuarioSistemaRepository.findById(id).get();
             usuario.setNombreUsuario(nuevo.getNombreUsuario());
@@ -63,6 +74,10 @@ public class UsuarioSistemaService {
             usuarioSistemaRepository.save(usuario);
             return usuario;
         } else {
+            return null;
+        }
+    }catch (Exception e) {
+            log.error("Error al actualizar el usuario {}: {}", id, e.getMessage());
             return null;
         }
     }

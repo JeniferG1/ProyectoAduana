@@ -34,11 +34,17 @@ public class RelacionFamiliarService {
     }
 
     public RelacionFamiliar agregarRelacion(RelacionFamiliar nueva) {
+        try {
         log.info("Creando Relacion Familiar: {}", nueva.getParentesco());
         return relacionFamiliarRepository.save(nueva);
+    }catch (Exception e) {
+            log.error("Error al crear relacion familiar: {}", e.getMessage());
+            return null;
+        }
     }
 
     public boolean eliminarRelacion(Integer id) {
+        try {
         if (relacionFamiliarRepository.existsById(id)) {
             log.info("Eliminando relacion familiar : {}", id);
             relacionFamiliarRepository.deleteById(id);
@@ -47,9 +53,14 @@ public class RelacionFamiliarService {
             log.warn("relacion familiar {} no encontrado", id);
             return false;
         }
+    }  catch (Exception e) {
+            log.error("Error al eliminar relacion familiar con id {}: {}", id, e.getMessage());
+            return false;
+        }
     }
 
     public RelacionFamiliar actualizarRelacion(Integer id, RelacionFamiliar nueva) {
+        try {
         if (relacionFamiliarRepository.existsById(id)) {
             RelacionFamiliar relacion = relacionFamiliarRepository.findById(id).get();
             relacion.setParentesco(nueva.getParentesco());
@@ -60,5 +71,10 @@ public class RelacionFamiliarService {
         } else {
             return null;
         }
+    }catch (Exception e) {
+            log.error("Error al actualizar relacion familiar con id {}: {}", id, e.getMessage());
+            return null;
+        }
     }
 }
+

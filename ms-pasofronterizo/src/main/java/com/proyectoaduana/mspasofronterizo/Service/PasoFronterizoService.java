@@ -34,11 +34,17 @@ public class PasoFronterizoService {
     }
 
     public PasoFronterizo agregarPaso(PasoFronterizo nuevo) {
+        try {
         log.info("Creando Paso fronterizo: {}", nuevo.getNombrePaso());
         return pasoFronterizoRepository.save(nuevo);
+    }catch (Exception e) {
+            log.error("Error al crear paso fronterizo: {}", e.getMessage());
+            return null;
+        }
     }
 
     public boolean eliminarPaso(Integer id) {
+        try {
         if (pasoFronterizoRepository.existsById(id)) {
             log.info("Eliminando paso fronterizo id: {}", id);
             pasoFronterizoRepository.deleteById(id);
@@ -47,9 +53,15 @@ public class PasoFronterizoService {
             log.warn("Paso fronterizo {} no encontrado", id);
             return false;
         }
+    } catch (Exception e) {
+        log.error("Error al eliminar paso fronterizo con id {}: {}", id, e.getMessage());
+        return false;
+    }
     }
 
+
     public PasoFronterizo actualizarPaso(Integer id, PasoFronterizo nuevo) {
+        try {
         if (pasoFronterizoRepository.existsById(id)) {
             PasoFronterizo paso = pasoFronterizoRepository.findById(id).get();
             paso.setNombrePaso(nuevo.getNombrePaso());
@@ -59,5 +71,9 @@ public class PasoFronterizoService {
         } else {
             return null;
         }
+    } catch (Exception e) {
+        log.error("Error al actualizar paso fronterizo con id {}: {}", id, e.getMessage());
+        return null;
     }
+}
 }

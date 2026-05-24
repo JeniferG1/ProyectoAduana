@@ -34,11 +34,17 @@ public class PermisoCirculacionService {
     }
 
     public PermisoCirculacion agregarPermiso(PermisoCirculacion nuevo) {
+        try {
         log.info("Creando Permiso circulacion: {}", nuevo.getFechaEmision());
         return permisoCirculacionRepository.save(nuevo);
+    }catch (Exception e) {
+            log.error("Error al crear paso fronterizo: {}", e.getMessage());
+            return null;
+        }
     }
 
     public boolean eliminarPermiso(Integer id) {
+        try {
         if (permisoCirculacionRepository.existsById(id)) {
             log.info("Eliminando permiso de circulacion : {}", id);
             permisoCirculacionRepository.deleteById(id);
@@ -47,9 +53,14 @@ public class PermisoCirculacionService {
             log.warn("Permiso de circulacion {} no encontrado", id);
             return false;
         }
+    } catch (Exception e) {
+            log.error("Error al eliminar permiso de circulacion con id {}: {}", id, e.getMessage());
+            return false;
+        }
     }
 
     public PermisoCirculacion actualizarPermiso(Integer id, PermisoCirculacion nuevo) {
+        try {
         if (permisoCirculacionRepository.existsById(id)) {
             PermisoCirculacion permiso = permisoCirculacionRepository.findById(id).get();
             permiso.setFechaEmision(nuevo.getFechaEmision());
@@ -61,5 +72,10 @@ public class PermisoCirculacionService {
         } else {
             return null;
         }
+    } catch (Exception e) {
+        log.error("Error al actualizar permiso de circulacion con id {}: {}", id, e.getMessage());
+        return null;
     }
 }
+}
+

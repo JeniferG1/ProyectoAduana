@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class TramiteFronterizoController {
         }
     }
 
+
     @PostMapping("/")
     public ResponseEntity<TramiteFronterizo> createTramite(@RequestBody @Valid TramiteFronterizo tramite) {
         TramiteFronterizo nuevo = tramiteFronterizoService.agregarTramite(tramite);
@@ -82,6 +84,15 @@ public class TramiteFronterizoController {
         TramiteFronterizo actualizado = tramiteFronterizoService.actualizarTramite(id, nuevo);
         if (actualizado != null) {
             return new ResponseEntity<>(actualizado, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/completo/{id}")
+    public ResponseEntity<Map<String, Object>> getTramiteCompleto(@PathVariable Integer id) {
+        Map<String, Object> resultado = tramiteFronterizoService.obtenerTramiteCompleto(id);
+        if (resultado != null) {
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

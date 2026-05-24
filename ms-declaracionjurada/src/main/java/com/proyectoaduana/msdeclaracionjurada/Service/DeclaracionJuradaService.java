@@ -30,31 +30,55 @@ public class DeclaracionJuradaService {
     }
 
     public DeclaracionJurada agregarDeclaracion(DeclaracionJurada nueva) {
-        log.info("Creando declaracion: {}", nueva.getFirmaDigital());
-        return declaracionJuradaRepository.save(nueva);
+        try {
+            log.info("Creando declaracion: {}", nueva.getFirmaDigital());
+            return declaracionJuradaRepository.save(nueva);
+
+        } catch (Exception e) {
+            log.error("Error al crear xxx: {}", e.getMessage());
+            return null;
+        }
     }
 
     public boolean eliminarDeclaracion(Integer id) {
-        if (declaracionJuradaRepository.existsById(id)) {
-            log.info("Eliminando declaracion : {}", id);
-            declaracionJuradaRepository.deleteById(id);
-            return true;
-        } else {
-            log.warn("declaracion {} no encontrada", id);
+        try {
+            if  (declaracionJuradaRepository.existsById(id))  {
+                log.info("Eliminando declaracion con id: {}", id);
+                declaracionJuradaRepository.deleteById(id);
+                return true;
+            } else {
+                log.warn("declaracion {} no encontrada", id);
+                return false;
+            }
+        } catch (Exception e) {
+            log.error("Error al eliminar  con id {}: {}", id, e.getMessage());
             return false;
         }
     }
 
     public DeclaracionJurada actualizarDeclaracion(Integer id, DeclaracionJurada nueva) {
-        if (declaracionJuradaRepository.existsById(id)) {
-            DeclaracionJurada declaracion = declaracionJuradaRepository.findById(id).get();
-            declaracion.setFirmaDigital(nueva.getFirmaDigital());
-            declaracion.setAlertaRiesgo(nueva.getAlertaRiesgo());
-            declaracion.setIdTramite(nueva.getIdTramite());
-            declaracionJuradaRepository.save(declaracion);
-            return declaracion;
-        } else {
+        try {
+            if (declaracionJuradaRepository.existsById(id)) {
+                DeclaracionJurada declaracion = declaracionJuradaRepository.findById(id).get();
+                declaracion.setFirmaDigital(nueva.getFirmaDigital());
+                declaracion.setAlertaRiesgo(nueva.getAlertaRiesgo());
+                declaracion.setIdTramite(nueva.getIdTramite());
+                declaracionJuradaRepository.save(declaracion);
+                return declaracion;
+            } else {
+                    return null;
+            }
+
+        } catch (Exception e) {
+            log.error("Error al actualizar declaracion {}: {}", id, e.getMessage());
             return null;
         }
+
+        }
     }
-}
+
+
+
+
+
+

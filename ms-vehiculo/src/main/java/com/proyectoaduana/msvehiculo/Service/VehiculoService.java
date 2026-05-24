@@ -33,12 +33,17 @@ public class VehiculoService {
     }
 
     public Vehiculo agregarVehiculo(Vehiculo nuevo) {
+        try {
         log.info("Creando usuario : {}", nuevo.getTipoPlaca());
-
         return vehiculoRepository.save(nuevo);
+    }catch (Exception e) {
+            log.error("Error al crear el vehiculo: {}", e.getMessage());
+            return null;
+        }
     }
 
     public boolean eliminarVehiculo(String patente) {
+        try {
         if (vehiculoRepository.existsById(patente)) {
             log.info("Eliminando vehiculo : {}", patente);
             vehiculoRepository.deleteById(patente);
@@ -47,9 +52,14 @@ public class VehiculoService {
             log.warn("vehiculo {} no encontrado", patente);
             return false;
         }
+    }catch (Exception e) {
+            log.error("Error al eliminar el vehiculo {}: {}", patente, e.getMessage());
+            return false;
+        }
     }
 
     public Vehiculo actualizarVehiculo(String patente, Vehiculo nuevo) {
+        try {
         if (vehiculoRepository.existsById(patente)) {
             Vehiculo vehiculo = vehiculoRepository.findById(patente).get();
             vehiculo.setMarca(nuevo.getMarca());
@@ -59,6 +69,10 @@ public class VehiculoService {
             vehiculoRepository.save(vehiculo);
             return vehiculo;
         } else {
+            return null;
+        }
+    }catch (Exception e) {
+            log.error("Error al actualizar el vehiculo {}: {}", patente, e.getMessage());
             return null;
         }
     }

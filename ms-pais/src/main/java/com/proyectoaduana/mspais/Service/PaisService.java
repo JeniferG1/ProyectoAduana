@@ -30,11 +30,17 @@ public class PaisService {
     }
 
     public Pais agregarPais(Pais nuevo) {
+        try {
         log.info("Creando Pais: {}", nuevo.getNombrePais());
         return paisRepository.save(nuevo);
+    }catch (Exception e) {
+        log.error("Error al crear pais: {}", e.getMessage());
+        return null;
+    }
     }
 
     public boolean eliminarPais(Integer id) {
+        try {
         if (paisRepository.existsById(id)) {
             paisRepository.deleteById(id);
             log.info("Eliminando pais: {}", id);
@@ -43,9 +49,14 @@ public class PaisService {
             log.warn("Pais {} no encontrado", id);
             return false;
         }
+        } catch (Exception e) {
+            log.error("Error al eliminar pais con id {}: {}", id, e.getMessage());
+            return false;
+        }
     }
 
     public Pais actualizarPais(Integer id, Pais nuevo) {
+        try {
         if (paisRepository.existsById(id)) {
             Pais pais = paisRepository.findById(id).get();
             pais.setNombrePais(nuevo.getNombrePais());
@@ -54,6 +65,10 @@ public class PaisService {
             return pais;
         } else {
 
+            return null;
+        }
+        } catch (Exception e) {
+            log.error("Error al actualizar pais con id {}: {}", id, e.getMessage());
             return null;
         }
     }
