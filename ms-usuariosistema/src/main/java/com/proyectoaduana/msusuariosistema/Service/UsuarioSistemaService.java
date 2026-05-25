@@ -45,6 +45,7 @@ public class UsuarioSistemaService {
     public UsuarioSistema agregarUsuario(UsuarioSistema nuevo) {
         try {
             log.info("Creando usuario: {}", nuevo.getNombreUsuario());
+            nuevo.setIdUser(null);
             return usuarioSistemaRepository.save(nuevo);
         } catch (Exception e) {
             log.error("Error al crear usuario: {}", e.getMessage());

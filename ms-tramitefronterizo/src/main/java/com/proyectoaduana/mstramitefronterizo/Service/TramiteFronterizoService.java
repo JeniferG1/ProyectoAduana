@@ -86,6 +86,7 @@ public class TramiteFronterizoService {
     public TramiteFronterizo agregarTramite(TramiteFronterizo nuevo) {
         try {
             log.info("Creando tramite para pasajero: {}", nuevo.getRutPasajero());
+            nuevo.setIdTramite(null);
             return tramiteFronterizoRepository.save(nuevo);
         } catch (Exception e) {
             log.error("Error al crear tramite: {}", e.getMessage());

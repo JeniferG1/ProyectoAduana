@@ -35,6 +35,7 @@ public class PersonaService {
     public Persona agregarPersona(Persona nueva) {
         try {
             log.info("Creando persona con RUT: {}", nueva.getRutPasaporte());
+            nueva.setIdPersona(null);
             return personaRepository.save(nueva);
         } catch (Exception e) {
             log.error("Error al crear persona: {}", e.getMessage());

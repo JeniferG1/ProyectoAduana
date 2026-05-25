@@ -32,6 +32,7 @@ public class DeclaracionJuradaService {
     public DeclaracionJurada agregarDeclaracion(DeclaracionJurada nueva) {
         try {
             log.info("Creando declaracion: {}", nueva.getFirmaDigital());
+            nueva.setIdDeclaracion(null);
             return declaracionJuradaRepository.save(nueva);
 
         } catch (Exception e) {

@@ -35,6 +35,7 @@ public class DetalleProductoService {
     public DetalleProducto agregarDetalle(DetalleProducto nuevo) {
         try {
         log.info("Creando detalle producto: {}", nuevo.getCategoria());
+        nuevo.setIditem(null);
         return detalleProductoRepository.save(nuevo);
     }catch (Exception e) {
             log.error("Error al crear detalle producto: {}", e.getMessage());
