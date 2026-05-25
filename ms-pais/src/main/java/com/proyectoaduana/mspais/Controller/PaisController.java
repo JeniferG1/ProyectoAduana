@@ -47,7 +47,7 @@ public class PaisController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     public ResponseEntity<Pais> createPais(@RequestBody @Valid Pais pais) {
         Pais nuevo = paisService.agregarPais(pais);
         if (nuevo != null) {
