@@ -36,7 +36,7 @@ public class DeclaracionJuradaService {
             return declaracionJuradaRepository.save(nueva);
 
         } catch (Exception e) {
-            log.error("Error al crear xxx: {}", e.getMessage());
+            log.error("Error al crear: {}", e.getMessage());
             return null;
         }
     }
