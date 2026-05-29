@@ -15,8 +15,8 @@ import java.util.Date;
 public class TramiteFronterizo {
 
     @Id
-    @NotNull(message = "El id del tramite es obligatorio")
-    @Column(name = "id_tramite", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tramite")
     private Integer idTramite;
 
     @NotNull(message = "La fecha y hora es obligatoria")
@@ -28,13 +28,16 @@ public class TramiteFronterizo {
     @Column(name = "sentido", length = 10)
     private String sentido;
 
-    @Column(name = "id_paso")
+    @NotNull(message = "El id del paso fronterizo es obligatorio")
+    @Column(name = "id_paso", nullable = false)
     private Integer idPaso;
 
+    @NotBlank(message = "El RUT del pasajero es obligatorio")
     @Size(max = 20, message = "El RUT del pasajero no puede superar 20 caracteres")
-    @Column(name = "rut_pasajero", length = 20)
+    @Column(name = "rut_pasajero", nullable = false, length = 20)
     private String rutPasajero;
 
-    @Column(name = "id_funcionario")
+    @NotNull(message = "El id del funcionario es obligatorio")
+    @Column(name = "id_funcionario", nullable = false)
     private Integer idFuncionario;
 }

@@ -32,4 +32,5 @@ public class DetalleProducto {
     @NotNull(message = "El id de declaracion es obligatorio")
     @Column(name = "id_declaracion", nullable = false)
     private Integer idDeclaracion;
+
 }

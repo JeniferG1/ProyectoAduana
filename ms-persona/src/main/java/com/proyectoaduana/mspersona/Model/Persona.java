@@ -26,12 +26,14 @@ public class Persona {
     private String rutPasaporte;
 
     @NotBlank(message = "Los nombres son obligatorios")
-    @Size(max = 100)
+    @Size(min = 10,max = 100)
     @Column(name = "nombres", nullable = false, length = 100)
     private String nombres;
 
+
+
     @NotBlank(message = "Los apellidos son obligatorios")
-    @Size(max = 100)
+    @Size(min = 10,max = 100)
     @Column(name = "apellidos", nullable = false, length = 100)
     private String apellidos;
 

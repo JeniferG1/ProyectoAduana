@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 public class PasoFronterizo {
 
     @Id
-    @Column(name = "id_paso", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_paso")
     private Integer idPaso;
 
     @NotBlank(message = "El nombre del paso es obligatorio")
@@ -22,6 +23,7 @@ public class PasoFronterizo {
     @Column(name = "nombre_paso", nullable = false, length = 100)
     private String nombrePaso;
 
-    @Column(name = "cod_pais")
+    @NotNull(message = "El codigo de pais es obligatorio")
+    @Column(name = "cod_pais", nullable = false)
     private Integer codPais;
 }

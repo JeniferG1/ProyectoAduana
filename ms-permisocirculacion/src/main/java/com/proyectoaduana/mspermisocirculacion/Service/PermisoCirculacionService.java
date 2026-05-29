@@ -17,20 +17,29 @@ public class PermisoCirculacionService {
 
     private static final Logger log = LoggerFactory.getLogger(PermisoCirculacionService.class);
 
+
     @Autowired
     private PermisoCirculacionRepository permisoCirculacionRepository;
 
     @Autowired
     private VehiculoClient vehiculoClient;
 
+
+
     public List<PermisoCirculacion> listarPermisos() {
         log.info("Listando todos los permisos de circulacion");
         return permisoCirculacionRepository.findAll();
     }
 
+
     public PermisoCirculacion buscarPorId(Integer id) {
         log.info("Buscando permiso con id: {}", id);
         return permisoCirculacionRepository.findById(id).orElse(null);
+    }
+
+    public List<PermisoCirculacion> buscarpordiasvigencia(Integer diasVigencia) {
+        log.info("Buscandopor dias de vigencia: {}", diasVigencia);
+        return permisoCirculacionRepository.findbydiasVigencia(diasVigencia);
     }
 
     public List<PermisoCirculacion> buscarPorPatente(String patente) {

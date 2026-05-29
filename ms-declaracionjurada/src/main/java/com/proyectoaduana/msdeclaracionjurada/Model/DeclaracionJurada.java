@@ -24,6 +24,8 @@ public class DeclaracionJurada {
     private String firmaDigital;
 
     @NotNull(message = "La alerta de riesgo es obligatoria")
+    @Min(value = 0, message = "La alerta de riesgo debe ser 0 o 1")
+    @Max(value = 1, message = "La alerta de riesgo debe ser 0 o 1")
     @Column(name = "alerta_riesgo", nullable = false)
     private Integer alertaRiesgo;
 
