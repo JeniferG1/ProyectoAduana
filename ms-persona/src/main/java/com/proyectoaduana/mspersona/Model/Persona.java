@@ -44,5 +44,5 @@ public class Persona {
 
     @NotNull(message = "El campo es_menor es obligatorio")
     @Column(name = "es_menor", nullable = false)
-    private Integer esMenor;
+    private Boolean esMenor;
 }

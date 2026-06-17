@@ -1,5 +1,8 @@
 package com.proyectoaduana.mspermisocirculacion.Controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import com.proyectoaduana.mspermisocirculacion.Model.PermisoCirculacion;
 import com.proyectoaduana.mspermisocirculacion.Service.PermisoCirculacionService;
@@ -13,12 +16,16 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/permisos")
+@Tag(name="API Permiso circulacion",description = "API para la gestion de los Permiso de circulacion")
 public class PermisoCirculacionController {
 
     @Autowired
     private PermisoCirculacionService permisoCirculacionService;
 
     @GetMapping("")
+    @Operation(summary = "Obtener todos los Permiso de circulacion", description = "Permite consultar todos los Permiso de circulacion")
+    @ApiResponse(responseCode = "200",description = "consulta exitosa se entrega la lista de los Permiso de circulacion")
+    @ApiResponse(responseCode = "204",description = "consulta existosa, pero no se encontraron datos")
     public ResponseEntity<List<PermisoCirculacion>> getAllPermisos() {
         List<PermisoCirculacion> listado = permisoCirculacionService.listarPermisos();
         if (listado.isEmpty()) {
@@ -29,6 +36,7 @@ public class PermisoCirculacionController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener Permiso de circulacion segun su ID")
     public ResponseEntity<PermisoCirculacion> getPermisoById(@PathVariable Integer id) {
         PermisoCirculacion buscado = permisoCirculacionService.buscarPorId(id);
         if (buscado != null) {
@@ -39,6 +47,7 @@ public class PermisoCirculacionController {
     }
 
     @GetMapping("/patente/{patente}")
+    @Operation(summary = "Obtener permiso de circulacion por la patente")
     public ResponseEntity<List<PermisoCirculacion>> getPermisosByPatente(@PathVariable String patente) {
         List<PermisoCirculacion> listado = permisoCirculacionService.buscarPorPatente(patente);
         if (listado.isEmpty()) {
@@ -49,6 +58,7 @@ public class PermisoCirculacionController {
     }
 
     @GetMapping("/tramite/{idTramite}")
+    @Operation(summary = "Obtener permiso de circulacion por el id del tramite")
     public ResponseEntity<List<PermisoCirculacion>> getPermisosByIdTramite(@PathVariable Integer idTramite) {
         List<PermisoCirculacion> listado = permisoCirculacionService.buscarPorIdTramite(idTramite);
         if (listado.isEmpty()) {
@@ -59,6 +69,8 @@ public class PermisoCirculacionController {
     }
 
     @PostMapping("/")
+    @Operation(summary = "Permite agregar permiso de circulacion")
+    @ApiResponse(responseCode = "201",description = "Permiso de circulacion agregado exitosamente ")
     public ResponseEntity<PermisoCirculacion> createPermiso(@RequestBody @Valid PermisoCirculacion permiso) {
         PermisoCirculacion nuevo = permisoCirculacionService.agregarPermiso(permiso);
         if (nuevo != null) {
@@ -69,6 +81,8 @@ public class PermisoCirculacionController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Permite eliminar permiso de circulacion segun su ID")
+    @ApiResponse(responseCode = "201",description = "permiso de circulacion eliminado exitosamente ")
     public ResponseEntity<Void> deletePermiso(@PathVariable Integer id) {
         boolean res = permisoCirculacionService.eliminarPermiso(id);
         if (res) {
@@ -79,6 +93,9 @@ public class PermisoCirculacionController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un permiso de circulación", description = "Permite modificar los datos de un permiso existente mediante su ID")
+    @ApiResponse(responseCode = "200", description = "Permiso actualizado exitosamente")
+    @ApiResponse(responseCode = "404", description = "No se encontró el permiso con el ID proporcionado")
     public ResponseEntity<PermisoCirculacion> updatePermiso(@PathVariable Integer id, @RequestBody @Valid PermisoCirculacion nuevo) {
         PermisoCirculacion actualizado = permisoCirculacionService.actualizarPermiso(id, nuevo);
         if (actualizado != null) {
@@ -89,6 +106,9 @@ public class PermisoCirculacionController {
     }
 
     @GetMapping("/completo/{id}")
+    @Operation(summary = "Obtener detalles completos de un permiso", description = "Retorna toda la información detallada y relacionada del permiso por su ID")
+    @ApiResponse(responseCode = "200", description = "Consulta exitosa, se entregan los datos completos")
+    @ApiResponse(responseCode = "404", description = "No se encontró el permiso solicitado")
     public ResponseEntity<Map<String, Object>> getPermisoCompleto(@PathVariable Integer id) {
         Map<String, Object> resultado = permisoCirculacionService.obtenerPermisoCompleto(id);
         if (resultado != null) {

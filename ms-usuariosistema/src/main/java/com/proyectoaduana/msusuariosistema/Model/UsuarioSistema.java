@@ -30,5 +30,5 @@ public class UsuarioSistema {
     private String institucion;
 
     @Column(name = "cuenta_activa")
-    private Integer cuentaActiva;
+    private Boolean cuentaActiva;
 }
