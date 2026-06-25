@@ -39,7 +39,7 @@ public class PermisoCirculacionService {
 
     public List<PermisoCirculacion> buscarpordiasvigencia(Integer diasVigencia) {
         log.info("Buscandopor dias de vigencia: {}", diasVigencia);
-        return permisoCirculacionRepository.findbydiasVigencia(diasVigencia);
+        return permisoCirculacionRepository.findByDiasVigencia(diasVigencia);
     }
 
     public List<PermisoCirculacion> buscarPorPatente(String patente) {

@@ -53,4 +53,5 @@ class DeclaracionJuradaApplicationTests {
         log.info("Verificacion de registros de Declaraciones Juradas");
         assertEquals(2, cantidad);
     }
+
 }

@@ -10,5 +10,5 @@ import java.util.List;
 public interface PermisoCirculacionRepository extends JpaRepository<PermisoCirculacion, Integer> {
     List<PermisoCirculacion> findByPatente(String patente);
     List<PermisoCirculacion> findByIdTramite(Integer idTramite);
-    List<PermisoCirculacion> findbydiasVigencia(Integer diasVigencia);
+    List<PermisoCirculacion> findByDiasVigencia(Integer diasVigencia);
 }
